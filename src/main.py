@@ -45,8 +45,24 @@ class Rectangle:
         :param Rectangle other: The other rectangle to check if it intersects
         :return: bool
         """
+        if self.top_left > other.top_left:
+            rect1 = self
+            rect2 = other
+        else:
+            rect1 = other
+            rect2 = self
+
+        for point in rect1.points():
+            if (point > rect2.top_left) and (point < rect2.bottom_right):
+                return True
+
         return False
 
+    def points(self):
+        """
+        :return: list
+        """
+        return [self.top_left, self.top_right, self.bottom_left, self.bottom_right]
 
 class TestIntersections(unittest.TestCase):
 
